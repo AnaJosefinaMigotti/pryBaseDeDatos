@@ -15,7 +15,9 @@ namespace pryCasaleBDAccess
     {
         OleDbConnection conexionBaseDatos;
         string CadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;" +
-            "Data Source= BIBLIOTECA.accdb";
+            "Data Source= \\\\servidor\\Compartida\\VIDEOCLUB.accdb";
+
+        OleDbCommand QQuieroTraer;
         public frmPrincipal()
         {
             InitializeComponent();
@@ -36,9 +38,32 @@ namespace pryCasaleBDAccess
             }
             catch (Exception Mensaje)
             {
-                lblInformacion.Text = Mensaje.ToString();
+                lblInformacion.Text = Mensaje.ToString() + "\n";
             }
 
+        }
+
+        private void btnAbrirTabla_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                QQuieroTraer = new OleDbCommand();
+                QQuieroTraer.Connection = conexionBaseDatos;
+                QQuieroTraer.CommandType = CommandType.TableDirect;
+                QQuieroTraer.CommandText = "Clientes";
+                lblInformacion.Text = "Todo okis" + QQuieroTraer.CommandText;
+
+                OleDbDataReader objetolectura = QQuieroTraer.ExecuteReader();
+                while (objetolectura.Read())
+                {
+                    lblInformacion.Text =  lblInformacion + Convert.ToString(objetolectura["Nombre"]) + "\n";
+                }
+                objetolectura.Close();
+            }
+            catch (Exception Mensaje)
+            {
+                lblInformacion.Text = Mensaje.ToString() + "\n";
+            }
         }
     }
 }

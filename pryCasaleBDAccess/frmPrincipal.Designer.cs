@@ -60,6 +60,7 @@
             this.btnAbrirTabla.TabIndex = 2;
             this.btnAbrirTabla.Text = "Abrir Tabla";
             this.btnAbrirTabla.UseVisualStyleBackColor = true;
+            this.btnAbrirTabla.Click += new System.EventHandler(this.btnAbrirTabla_Click);
             // 
             // frmPrincipal
             // 
